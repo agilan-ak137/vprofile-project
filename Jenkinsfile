@@ -3,7 +3,7 @@ pipeline {
     agent any
 /*
 	tools {
-        maven "maven3"
+        maven "MAVEN3"
     }
 */
     environment {
@@ -25,7 +25,7 @@ pipeline {
         }
         stage('BUILD'){
             steps {
-                sh 'mvn install -DskipTests'
+                sh 'mvn clean install -DskipTests'
             }
             post {
                 success {
