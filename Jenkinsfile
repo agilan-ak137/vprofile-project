@@ -14,13 +14,13 @@ pipeline {
 		NEXUSIP = '172.31.26.253'
 		NEXUSPORT = '8081'
 		NEXUS_GRP_REPO = 'vpro-maven-group'
-        NEXUS_LOGIN = 'nexusid'
+        NEXUS_LOGIN = 'nexuslogin'
         SONARSERVER = 'sonarserver'
         SONARSCANNER = 'sonarscanner'
     }
 
     stages {
-        stage('Build') {
+        stage('Build'){
             steps {
                 sh 'mvn -s settings.xml -DskipTests install'
             }
@@ -32,18 +32,19 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        stage('Test'){
             steps {
                 sh 'mvn -s settings.xml test'
             }
+
         }
 
-        stage('Checkstyle Analysis') {
+        stage('Checkstyle Analysis'){
             steps {
-                sh 'mvn -s settings.xml checkstyle:checkstyle' 
+                sh 'mvn -s settings.xml checkstyle:checkstyle'
             }
         }
-        
+
         stage('Sonar Analysis') {
             environment {
                 scannerHome = tool "${SONARSCANNER}"
@@ -58,10 +59,8 @@ pipeline {
                    -Dsonar.junit.reportsPath=target/surefire-reports/ \
                    -Dsonar.jacoco.reportsPath=target/jacoco.exec \
                    -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
-                }
-
+              }
             }
-
         }
 
         stage("Quality Gate") {
@@ -74,30 +73,5 @@ pipeline {
             }
         }
 
-        stage('upload artifact') {
-            steps {
-                nexusArtifactUploader(
-                    nexusVersion: 'nexus3',
-                    protocol: 'http',
-                    nexusUrl: "${NEXUSIP}:${NEXUSPORT}",
-                    groupId: "QA",
-                    version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
-                    repository: "${RELEASE_REPO}",
-                    credentialsId: "${NEXUS_LOGIN}",
-                    artifacts: [
-                        [artifactId: 'vprofile-project',
-                         classifier: '',
-                         file: 'target/vprofile-v2.war',
-                         type: 'jar']
-                        ]
-                )
-            }
-        }
-
-
     }
-
 }
-
-
-
