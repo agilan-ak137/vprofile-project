@@ -113,7 +113,7 @@ pipeline {
 			        groupid: "QA",
 			        time: "${env.BUILD_TIMESTAMP}",
 			        build: "${env.BUILD_ID}",
-                    artifactid: "vproapp",
+                    artifactid: "vprofile-project",
 			        vprofile_version: "vproapp-${env.BUILD_ID}-${env.BUILD_TIMESTAMP}.war"
                 ]
              ])
