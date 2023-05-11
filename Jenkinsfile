@@ -114,7 +114,7 @@ pipeline {
 			        time: "${env.BUILD_TIMESTAMP}",
 			        build: "${env.BUILD_ID}",
                     artifactid: "vprofile-project",
-			        vprofile_version: "vprofile-project-${env.BUILD_ID}-${env.BUILD_TIMESTAMP}.war"
+			        vprofile_version: "vprofile-project-${env.BUILD_ID}-${env.BUILD_TIMESTAMP}.jar"
                 ]
              ])
             }
