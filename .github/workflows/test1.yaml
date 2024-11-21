@@ -3,9 +3,6 @@ name: Java CI with test
 on:
   push:
     branches: [ "main" ]
-    paths:
-      - 'src/**'        # Run only if files in 'src/' are modified..
-      - '.github/workflows/test1.yaml'
 
 jobs:
   build:
