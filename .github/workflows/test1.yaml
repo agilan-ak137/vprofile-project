@@ -18,3 +18,7 @@ jobs:
     - name: Check Ubuntu version
       run: lsb_release -a || cat /etc/os-release
 
+    - name: Set up Python
+      uses: actions/setup-python@v4  # Set up a Python environment
+      with:
+        python-version: '3.9'  # Specify the Python version
